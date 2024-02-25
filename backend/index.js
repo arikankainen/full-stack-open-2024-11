@@ -13,8 +13,8 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-// app.use(express.static('build'))
-app.use(express.static(path.join(__dirname, '../frontend/build')));
+app.use(express.static('build'));
+// app.use(express.static(path.join(__dirname, '../frontend/build')));
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
 
 app.get('/info', (request, response, next) => {
@@ -27,6 +27,14 @@ app.get('/info', (request, response, next) => {
             response.send(info);
         })
         .catch((error) => next(error));
+});
+
+app.get('/version', (request, response) => {
+    response.send('2');
+});
+
+app.get('/health', (request, response) => {
+    response.send('ok');
 });
 
 app.get('/api/persons', (request, response, next) => {
