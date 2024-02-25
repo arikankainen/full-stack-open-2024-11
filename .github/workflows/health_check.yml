@@ -1,0 +1,37 @@
+name: Periodic health check
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  periodic_health_check:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Check the deployed service URL
+      uses: jtalk/url-health-check-action@v4
+      with:
+        url: https://full-stack-open-pokedex-arikainen.fly.dev/ping
+
+    - name: Periodic health check success
+      uses: rjstone/discord-webhook-notify@v1
+      if: success()
+      with:
+        severity: info
+        color: '#00aa00'
+        text: Ping succeed
+        description: https://full-stack-open-pokedex-arikainen.fly.dev/ping responded
+        details: ''
+        webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+    - name: Periodic health check failure
+      uses: rjstone/discord-webhook-notify@v1
+      if: failure()
+      with:
+        severity: error
+        color: '#aa0000'
+        text: Ping failed
+        description: no response from https://full-stack-open-pokedex-arikainen.fly.dev/ping
+        details: ''
+        webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
