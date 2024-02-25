@@ -1,16 +1,16 @@
-# fly.toml app configuration file generated for full-stack-open-2023-11 on 2024-02-25T12:28:24+02:00
+# fly.toml app configuration file generated for full-stack-open-2023-11-quiet-leaf-1725 on 2024-02-25T14:13:38+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'full-stack-open-2023-11'
+app = 'full-stack-open-2023-11-quiet-leaf-1725'
 primary_region = 'arn'
 
-[processes]
-  app = "cd backend && node index.js"
-
 [env]
-  PORT = "3000" # add this
+  PORT = '3000'
+
+[processes]
+  app = 'node index.js'
 
 [http_service]
   internal_port = 3000
