@@ -6,8 +6,8 @@
 app = 'full-stack-open-2023-11'
 primary_region = 'arn'
 
-[services]
-  script = "cd backend && npm start"
+[processes]
+  app = "cd backend && node index.js"
 
 [env]
   PORT = "3000" # add this
